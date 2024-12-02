@@ -2,10 +2,10 @@
 
 # Import modules
 
-from room import Room
-from player import Player
-from command import Command
-from actions import Actions
+from room1 import Room
+from player1 import Player
+from command1 import Command
+from actions1 import Actions
 
 class Game:
 
@@ -30,32 +30,56 @@ class Game:
         
         # Setup rooms
 
-        forest = Room("Forest", "dans une forêt enchantée. Vous entendez une brise légère à travers la cime des arbres.")
-        self.rooms.append(forest)
-        tower = Room("Tower", "dans une immense tour en pierre qui s'élève au dessus des nuages.")
-        self.rooms.append(tower)
-        cave = Room("Cave", "dans une grotte profonde et sombre. Des voix semblent provenir des profondeurs.")
-        self.rooms.append(cave)
-        cottage = Room("Cottage", "dans un petit chalet pittoresque avec un toit de chaume. Une épaisse fumée verte sort de la cheminée.")
-        self.rooms.append(cottage)
-        swamp = Room("Swamp", "dans un marécage sombre et ténébreux. L'eau bouillonne, les abords sont vaseux.")
-        self.rooms.append(swamp)
-        castle = Room("Castle", "dans un énorme château fort avec des douves et un pont levis. Sur les tours, des flèches en or massif.")
-        self.rooms.append(castle)
+        prehistory = Room("Prehistory", "dans une grotte. Vous voyez des peintures qui représentent des mammouths et des silouhettes humaines.")
+        self.rooms.append(prehistory)
+
+        antiquity = Room("Antiquity", "dans une immense cité en pierre entourée de tempes en marbre,sous le regard des dieux de l'Olympe.")
+        self.rooms.append(antiquity)
+
+        antiquity_apocalyptic = Room("Antiquity_apocalyptic", "dans une immense cité en pierre entourée de tempes en marbre,sous le regard des dieux de l'Olympe.")
+        self.rooms.append(antiquity_apocalyptic)
+
+        middle_age = Room("middle_age", "dans une imposante forteresse entourée de douves et de forêts profondes. Des voix semblent provenir des champs de bataille.")
+        self.rooms.append(middle_age)
+
+        middle_age_apocalyptic = Room("middle_age_apocalyptic", "dans une imposante forteresse entourée de douves et de forêts profondes. Des voix semblent provenir des champs de bataille.")
+        self.rooms.append(middle_age_apocalyptic)
+
+        modern_period = Room("Modern_period", "dans un somptueux palais aux miroirs scintillants et aux jardins parfaitement ordonnés, l'écho des pas des courtisans se mêle aux intrigues de la monarchie absolue.")
+        self.rooms.append(modern_period)
+
+        modern_period_apocalyptic = Room("Modern_period_apocalyptic", "dans un somptueux palais aux miroirs scintillants et aux jardins parfaitement ordonnés, l'écho des pas des courtisans se mêle aux intrigues de la monarchie absolue.")
+        self.rooms.append(modern_period_apocalyptic)
+
+        contemporary_times = Room("Contemporary_times", "dans une place pavée enflammée par la foule en révolte. Les drapeaux s’agitent dans ciel.")
+        self.rooms.append(contemporary_times)
+
+        contemporary_times_apocalyptic = Room("Contemporary_times_apocalyptic", "dans une place pavée enflammée par la foule en révolte. Les drapeaux s’agitent dans ciel.")
+        self.rooms.append(contemporary_times_apocalyptic)
+
+        present = Room("Present", "dans le parking de l'ESIEE, les étudiants sortent des cours.")
+        self.rooms.append(present)
+
+        future = Room("Future", "dans une cité suspendue au-dessus des nuages, des voitures volantes glissent entre les tours lumineuses.")
+        self.rooms.append(future)
+
+        future_apocalyptic  = Room("Future_apocalyptic ", "dans une cité suspendue au-dessus des nuages, des voitures volantes glissent entre les tours lumineuses.")
+        self.rooms.append(future)
 
         # Create exits for rooms
 
-        forest.exits = {"N" : cave, "E" : None, "S" : castle, "O" : None}
-        tower.exits = {"N" : cottage, "E" : None, "S" : None, "O" : None}
-        cave.exits = {"N" : None, "E" : cottage, "S" : forest, "O" : None}
-        cottage.exits = {"N" : None, "E" : None, "S" : tower, "O" : cave}
-        swamp.exits = {"N" : tower, "E" : None, "S" : None, "O" : castle}
-        castle.exits = {"N" : forest, "E" : swamp, "S" : None, "O" : None}
+        prehistory.exits = {"N" : middle_age, "E" : None, "S" : future, "O" : None,"Up":contemporary_times_apocalyptic, "Down": future}
+        antiquity.exits = {"N" : modern_period, "E" : None, "S" : None, "O" : None}
+        middle_age.exits = {"N" : None, "E" : modern_period, "S" : prehistory, "O" : None}
+        modern_period.exits = {"N" : None, "E" : None, "S" : antiquity, "O" : middle_age}
+        contemporary_times.exits = {"N" : antiquity, "E" : None, "S" : None, "O" : future}
+        future.exits = {"N" : prehistory, "E" : contemporary_times, "S" : None, "O" : None}
+
 
         # Setup player and starting room
 
         self.player = Player(input("\nEntrez votre nom: "))
-        self.player.current_room = swamp
+        self.player.current_room = prehistory
 
     # Play the game
     def play(self):
