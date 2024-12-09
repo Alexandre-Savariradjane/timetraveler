@@ -71,6 +71,7 @@ class Actions:
             return False
         # Move the player in the direction specified by the parameter.
         player.move(direction)
+        player.history
         return True
 
     def quit(game, list_of_words, number_of_parameters):
@@ -151,3 +152,25 @@ class Actions:
             print("\t- " + str(command))
         print()
         return True
+
+            # Define the go_back method.
+    def back(game, list_of_words, number_of_parameters):
+        player = game.player
+        l = len(list_of_words)
+        # If the number of parameters is incorrect, print an error message and return False.
+        if l != number_of_parameters + 1:
+            command_word = list_of_words[0]
+            print(MSG0.format(command_word=command_word))
+            return False
+
+        if not player.history :
+            print("\nVous ne pouvez pas revenir en arrière, l'historique est vide !\n")
+            return False
+    
+
+        # Pop the last room from the history and set it as the current room.
+        player.current_room = player.history[-1]
+        player.history.pop()
+        print(f"\nVous êtes de retour dans l'époque précédente : {player.current_room.get_long_description()}")
+        return True
+                
