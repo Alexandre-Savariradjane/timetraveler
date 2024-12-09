@@ -172,5 +172,6 @@ class Actions:
         player.current_room = player.history[-1]
         player.history.pop()
         print(f"\nVous êtes de retour dans l'époque précédente : {player.current_room.get_long_description()}")
+        print(player.get_history())
         return True
                 
