@@ -174,4 +174,15 @@ class Actions:
         print(f"\nVous êtes de retour dans l'époque précédente : {player.current_room.get_long_description()}")
         print(player.get_history())
         return True
+    
+    def inventory(game, list_of_words, number_of_parameters):
+        player = game.player
+        l = len(list_of_words)
+        # If the number of parameters is incorrect, print an error message and return False.
+        if l != number_of_parameters + 1:
+            command_word = list_of_words[0]
+            print(MSG0.format(command_word=command_word))
+            return False
+
+        game.player.get_inventory()
                 

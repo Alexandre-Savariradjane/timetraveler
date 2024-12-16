@@ -34,6 +34,7 @@ class Player():
         self.name = name
         self.current_room = None
         self.history = []
+        self.inventory = {}
 
 
     def get_history(self):
@@ -49,7 +50,7 @@ class Player():
         # Get the next room from the exits dictionary of the current room.
         next_room = self.current_room.exits[direction]
 
-#Historique des room
+    # Historique des room
         self.history.append(self.current_room)
         # If the next room is None, print an error message and return False.
         if next_room is None:
@@ -62,6 +63,22 @@ class Player():
         print(self.current_room.get_long_description())
         print(self.get_history())
         return True
+    
+    # Define the inventory method.
+
+    def get_inventory(self):
+        if not self.inventory:  # Vérifier si l'inventaire est vide
+            print("\nVotre inventaire est vide.")
+        
+        else:
+            print("\nVous disposez des items suivants :")  # Parcourir les items du dictionnaire
+            for item in self.inventory.values():
+                print(f"{item}")  # Utilise la méthode __str__() définie dans la classe Item
+
+
+        
+
+         
     
 
 

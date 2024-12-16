@@ -6,6 +6,7 @@ from room1 import Room
 from player1 import Player
 from command1 import Command
 from actions1 import Actions
+from item import Item
 
 class Game:
 
@@ -23,12 +24,19 @@ class Game:
 
         help = Command("help", " : afficher cette aide", Actions.help, 0)
         self.commands["help"] = help
+
         quit = Command("quit", " : quitter le jeu", Actions.quit, 0)
         self.commands["quit"] = quit
+
         go = Command("go", " <direction> : se déplacer dans une direction cardinale (N, E, S, O)", Actions.go, 1)
         self.commands["go"] = go
+
         back = Command("back", " : retourner en arrière", Actions.back,0)
         self.commands["back"] = back
+
+        inventory = Command("inventory", " : afficher l'inventaire des objets", Actions.inventory, 0)
+        self.commands["inventory"] = inventory
+
         # Setup rooms
 
         prehistory = Room("Prehistory", "dans une grotte. Vous voyez des peintures qui représentent des mammouths et des silouhettes humaines.")
@@ -67,6 +75,12 @@ class Game:
         future_apocalyptic  = Room("Future_apocalyptic ", "dans une cité suspendue au-dessus des nuages, des voitures volantes glissent entre les tours lumineuses.")
         self.rooms.append(future)
 
+        # Create items
+
+        sword = Item("sword", "une épée au fil tranchant comme un rasoir", 2)
+        torch = Item("torch", "une torche flamboyante éclairant comme le soleil", 1)
+
+
         # Create exits for rooms
 
         prehistory.exits = {"N" : middle_age, "E" : None, "S" : future, "O" : None,"Up":contemporary_times_apocalyptic, "Down": future}
@@ -81,6 +95,13 @@ class Game:
 
         self.player = Player(input("\nEntrez votre nom: "))
         self.player.current_room = prehistory
+        self.player.inventory = {
+            "sword": sword,
+            "torch": torch,
+            }
+
+        # Appel de la méthode get_inventory
+        self.player.get_inventory()
 
     # Play the game
     def play(self):
@@ -113,6 +134,7 @@ class Game:
         print(f"\nBienvenue {self.player.name} dans ce jeu d'aventure !")
         print("Entrez 'help' si vous avez besoin d'aide.")
         print(self.player.current_room.get_long_description())
+
     
 
 def main():

@@ -40,6 +40,10 @@ class Room:
         self.name = name
         self.description = description
         self.exits = {}
+
+
+    def get_inventory(self):
+        self.inventory.get_inventory()
     
     # Define the get_exit method.
     def get_exit(self, direction):
