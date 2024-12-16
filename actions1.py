@@ -185,4 +185,126 @@ class Actions:
             return False
 
         game.player.get_inventory()
+
+    def inventory_lieux(game, list_of_words, number_of_parameters):
+        player = game.player
+        l = len(list_of_words)
+        # If the number of parameters is incorrect, print an error message and return False.
+        if l != number_of_parameters + 1:
+            command_word = list_of_words[0]
+            print(MSG0.format(command_word=command_word))
+            return False
+
+        game.player.get_inventory_lieux()
                 
+    def look(game, list_of_words, number_of_parameters):
+        player = game.player
+        room = game.player.current_room
+        l = len(list_of_words)
+        # If the number of parameters is incorrect, print an error message and return False.
+        if l != number_of_parameters + 1:
+            command_word = list_of_words[0]
+            print(MSG0.format(command_word=command_word))
+            return False
+        
+        game.player.current_room.get_inventory()
+
+        return True
+    
+
+    def take(game, list_of_words, number_of_parameters):
+        """
+        Permet au joueur de ramasser un objet dans la pièce actuelle.
+
+        Args:
+            game (Game): L'objet représentant le jeu.
+            list_of_words (list): La liste des mots de la commande.
+            number_of_parameters (int): Le nombre de paramètres attendus par la commande.
+
+        Returns:
+            bool: True si l'objet a été pris avec succès, False sinon.
+        """
+        player = game.player
+        l = len(list_of_words)
+        room = game.player.current_room
+
+        # Vérifie que le nombre de paramètres est correct
+        if l != number_of_parameters + 1:
+            command_word = list_of_words[0]
+            print(MSG1.format(command_word=command_word))
+            return False
+
+        # Récupère l'objet à ramasser
+        if room.inventory =={}:
+            print("\n il n'y a rien !\n")
+
+            return False
+
+        item = list_of_words[1]
+
+        if item not in room.inventory.keys():
+            print("\n cette objets n'est pas dans cette piece!\n")
+
+            return False
+
+
+
+
+        objet=game.items[item]
+
+        player.inventory[f'{item}']=objet
+
+        print(f"\n vous avez ramasser,{objet.name}!\n")
+
+
+        room.inventory.pop(f"{item}")
+        return True
+
+
+    def drop(game, list_of_words, number_of_parameters):
+        """
+        Permet au joueur de déposer un objet dans la pièce actuelle.
+
+        Args:
+            game (Game): L'objet représentant le jeu.
+            list_of_words (list): La liste des mots de la commande.
+            number_of_parameters (int): Le nombre de paramètres attendus par la commande.
+
+        Returns:
+            bool: True si l'objet a été pris avec succès, False sinon.
+        """
+        player = game.player
+        l = len(list_of_words)
+        room = game.player.current_room
+
+        # Vérifie que le nombre de paramètres est correct
+        if l != number_of_parameters + 1:
+            command_word = list_of_words[0]
+            print(MSG1.format(command_word=command_word))
+            return False
+
+        # Récupère l'objet à ramasser
+        if player.inventory =={}:
+            print("\n il n'y a rien !\n")
+
+            return False
+
+        item = list_of_words[1]
+
+        if item not in player.inventory.keys():
+            print("\n cette objet n'est pas dans cette piece!\n")
+
+            return False
+
+
+
+
+        objet=game.items[item]
+
+        room.inventory[f'{item}']=objet
+
+        print(f"\n vous avez déposé,{objet.name}!\n")
+
+
+        player.inventory.pop(f"{item}")
+        return True

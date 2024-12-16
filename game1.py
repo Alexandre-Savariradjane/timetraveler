@@ -16,6 +16,7 @@ class Game:
         self.rooms = []
         self.commands = {}
         self.player = None
+        self.items = {}
     
     # Setup the game
     def setup(self):
@@ -36,6 +37,20 @@ class Game:
 
         inventory = Command("inventory", " : afficher l'inventaire des objets", Actions.inventory, 0)
         self.commands["inventory"] = inventory
+    
+        inventory_lieux = Command("inventory_lieux", " : afficher l'inventaire des objets présents dans la pièce", Actions.inventory_lieux, 0)
+        self.commands["inventory_lieux"] = inventory_lieux
+
+        look = Command("look", "afficher les objets présents dans la pièce actuelle", Actions.look, 0)
+        self.commands["look"] = look
+
+        take = Command("take", "prendre les objets présents dans la pièce actuelle", Actions.take, 1)
+        self.commands["take"] = take
+
+        drop = Command("drop", "prendre les objets présents dans la pièce actuelle", Actions.drop, 1)
+        self.commands["drop"] = drop
+
+        
 
         # Setup rooms
 
@@ -78,7 +93,10 @@ class Game:
         # Create items
 
         sword = Item("sword", "une épée au fil tranchant comme un rasoir", 2)
+        self.items['sword']=sword
+        vase = Item("vase", "un vase décoré avec des motifs de l'Antiquité grecque",2 )
         torch = Item("torch", "une torche flamboyante éclairant comme le soleil", 1)
+        
 
 
         # Create exits for rooms
@@ -97,8 +115,13 @@ class Game:
         self.player.current_room = prehistory
         self.player.inventory = {
             "sword": sword,
+            "vase": vase,
             "torch": torch,
+            
             }
+        prehistory.inventory = {'torch': torch}
+        middle_age.inventory = {'sword': sword}
+        antiquity.inventory = {'vase': vase}
 
         # Appel de la méthode get_inventory
         self.player.get_inventory()

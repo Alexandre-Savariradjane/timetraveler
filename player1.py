@@ -35,6 +35,7 @@ class Player():
         self.current_room = None
         self.history = []
         self.inventory = {}
+        self.inventory_lieux = ()
 
 
     def get_history(self):
@@ -74,6 +75,15 @@ class Player():
             print("\nVous disposez des items suivants :")  # Parcourir les items du dictionnaire
             for item in self.inventory.values():
                 print(f"{item}")  # Utilise la méthode __str__() définie dans la classe Item
+    
+    def get_inventory(self):
+        if not self.inventory:  # Vérifier si l'inventaire est vide
+            print("\nIl n'y a rien ici.")
+        
+        else:
+            print("\nLa pièce contient:")  # Parcourir les items du dictionnaire
+            for item in self.inventory.values():
+                print(f" -{item}")  # Utilise la méthode __str__() définie dans la classe Item
 
 
         

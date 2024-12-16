@@ -40,11 +40,18 @@ class Room:
         self.name = name
         self.description = description
         self.exits = {}
+        self.items = []
+        self.inventory_lieux = {}
+        self.inventory = {}
 
+    
 
     def get_inventory(self):
         self.inventory.get_inventory()
-    
+
+    def get_inventory_lieux(self):
+        self.inventory.get_inventory_lieux()
+
     # Define the get_exit method.
     def get_exit(self, direction):
 
@@ -66,4 +73,13 @@ class Room:
     # Return a long description of this room including exits.
     def get_long_description(self):
         return f"\nVous êtes {self.description}\n\n{self.get_exit_string()}\n"
+    
+    def get_inventory(self):
+        if not self.inventory:  # Vérifier si l'inventaire est vide
+            print("\nIl n'y a rien ici.")
+        
+        else:
+            print("\nLa pièce contient:")  # Parcourir les items du dictionnaire
+            for item in self.inventory.values():
+                print(f" -{item}")  # Utilise la méthode __str__() définie dans la classe Item
 
