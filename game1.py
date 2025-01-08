@@ -41,13 +41,13 @@ class Game:
         inventory_lieux = Command("inventory_lieux", " : afficher l'inventaire des objets présents dans la pièce", Actions.inventory_lieux, 0)
         self.commands["inventory_lieux"] = inventory_lieux
 
-        look = Command("look", "afficher les objets présents dans la pièce actuelle", Actions.look, 0)
+        look = Command("look", " : afficher les objets présents dans la pièce actuelle", Actions.look, 0)
         self.commands["look"] = look
 
-        take = Command("take", "prendre les objets présents dans la pièce actuelle", Actions.take, 1)
+        take = Command("take", " : prendre les objets présents dans la pièce actuelle", Actions.take, 1)
         self.commands["take"] = take
 
-        drop = Command("drop", "prendre les objets présents dans la pièce actuelle", Actions.drop, 1)
+        drop = Command("drop", " : déposer les objets présents dans la pièce actuelle", Actions.drop, 1)
         self.commands["drop"] = drop
 
         
@@ -95,8 +95,9 @@ class Game:
         sword = Item("sword", "une épée au fil tranchant comme un rasoir", 2)
         self.items['sword']=sword
         vase = Item("vase", "un vase décoré avec des motifs de l'Antiquité grecque",2 )
+        self.items['vase']=vase
         torch = Item("torch", "une torche flamboyante éclairant comme le soleil", 1)
-        
+        self.items['torch']=torch
 
 
         # Create exits for rooms
@@ -114,14 +115,11 @@ class Game:
         self.player = Player(input("\nEntrez votre nom: "))
         self.player.current_room = prehistory
         self.player.inventory = {
-            "sword": sword,
-            "vase": vase,
-            "torch": torch,
-            
-            }
-        prehistory.inventory = {'torch': torch}
-        middle_age.inventory = {'sword': sword}
-        antiquity.inventory = {'vase': vase}
+            "vase" : vase
+        }
+        prehistory.inventory_lieux.add(sword)
+        middle_age.inventory_lieux.add(sword)
+        antiquity.inventory_lieux.add(vase)
 
         # Appel de la méthode get_inventory
         self.player.get_inventory()

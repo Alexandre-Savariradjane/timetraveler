@@ -207,7 +207,7 @@ class Actions:
             print(MSG0.format(command_word=command_word))
             return False
         
-        game.player.current_room.get_inventory()
+        game.player.current_room.get_inventory_lieux()
 
         return True
     
@@ -234,31 +234,20 @@ class Actions:
             print(MSG1.format(command_word=command_word))
             return False
 
+
+        item_name = list_of_words[1]
         # Récupère l'objet à ramasser
-        if room.inventory =={}:
-            print("\n il n'y a rien !\n")
+        for elem in game.player.current_room.inventory_lieux:
+            if elem.name == item_name:
+                game.player.inventory[item_name]=elem
+                game.player.current_room.inventory_lieux.remove(elem)
+                print(f"\n vous avez ramasser,{elem.name}!\n")
+                return True
 
-            return False
+        print("\n cet objet n'est pas dans cette piece!\n")
 
-        item = list_of_words[1]
-
-        if item not in room.inventory.keys():
-            print("\n cette objets n'est pas dans cette piece!\n")
-
-            return False
-
-
-
-
-        objet=game.items[item]
-
-        player.inventory[f'{item}']=objet
-
-        print(f"\n vous avez ramasser,{objet.name}!\n")
-
-
-        room.inventory.pop(f"{item}")
-        return True
+        return False
+        
 
 
     def drop(game, list_of_words, number_of_parameters):
@@ -298,13 +287,13 @@ class Actions:
 
 
 
-
-        objet=game.items[item]
-
-        room.inventory[f'{item}']=objet
+        for k, v in game.player.inventory.items():
+            if k==item:
+                objet = v
+        room.inventory_lieux.add(objet)
+        del game.player.inventory[item]
 
         print(f"\n vous avez déposé,{objet.name}!\n")
 
 
-        player.inventory.pop(f"{item}")
         return True

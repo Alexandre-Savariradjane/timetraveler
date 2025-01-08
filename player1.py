@@ -76,7 +76,7 @@ class Player():
             for item in self.inventory.values():
                 print(f"{item}")  # Utilise la méthode __str__() définie dans la classe Item
     
-    def get_inventory(self):
+    def get_inventory_lieux(self):
         if not self.inventory:  # Vérifier si l'inventaire est vide
             print("\nIl n'y a rien ici.")
         

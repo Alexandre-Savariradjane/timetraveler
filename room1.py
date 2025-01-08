@@ -41,16 +41,12 @@ class Room:
         self.description = description
         self.exits = {}
         self.items = []
-        self.inventory_lieux = {}
+        self.inventory_lieux = set()
         self.inventory = {}
 
     
 
-    def get_inventory(self):
-        self.inventory.get_inventory()
 
-    def get_inventory_lieux(self):
-        self.inventory.get_inventory_lieux()
 
     # Define the get_exit method.
     def get_exit(self, direction):
@@ -83,3 +79,11 @@ class Room:
             for item in self.inventory.values():
                 print(f" -{item}")  # Utilise la méthode __str__() définie dans la classe Item
 
+    def get_inventory_lieux(self):
+        if not self.inventory_lieux:  # Vérifier si l'inventaire est vide
+            print("\nIl n'y a rien ici.")
+        
+        else:
+            print("\nLa pièce contient:")  # Parcourir les items du dictionnaire
+            for item in self.inventory_lieux:
+                print(f" -{item}")  # Utilise la méthode __str__() définie dans la classe Item
