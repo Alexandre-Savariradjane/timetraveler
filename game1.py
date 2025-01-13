@@ -7,6 +7,9 @@ from player1 import Player
 from command1 import Command
 from actions1 import Actions
 from item import Item
+from character import Characters
+
+DEBUG = True  # Passez à False pour désactiver le débogage.
 
 class Game:
 
@@ -17,6 +20,7 @@ class Game:
         self.commands = {}
         self.player = None
         self.items = {}
+        self.characters = {}
     
     # Setup the game
     def setup(self):
@@ -49,6 +53,8 @@ class Game:
 
         drop = Command("drop", " : déposer les objets présents dans la pièce actuelle", Actions.drop, 1)
         self.commands["drop"] = drop
+
+
 
         
 
@@ -99,6 +105,11 @@ class Game:
         torch = Item("torch", "une torche flamboyante éclairant comme le soleil", 1)
         self.items['torch']=torch
 
+        # Create PNJ
+
+        Gandalf = Characters("Gandalf", "un magicien blanc" ,prehistory, "Abracadabra !")
+        self.characters['Gandalf']=Gandalf
+
 
         # Create exits for rooms
 
@@ -121,8 +132,23 @@ class Game:
         middle_age.inventory_lieux.add(sword)
         antiquity.inventory_lieux.add(vase)
 
+        prehistory.characters = {"Gandalf" : Gandalf}
+ 
         # Appel de la méthode get_inventory
         self.player.get_inventory()
+
+    def game_loop(game):
+        while True:
+            command = input("> ")
+            game.parse_command(command)
+
+        # Déplacement des PNJ
+            for room in game.rooms.values():
+                for character in room.characters.values():
+                    moved = character.move()
+                    if DEBUG and moved:
+                        print(f"DEBUG: {character.name} s'est déplacé dans {character.current_room.name}.")
+
 
     # Play the game
     def play(self):

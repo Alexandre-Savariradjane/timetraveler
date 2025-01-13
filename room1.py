@@ -43,6 +43,7 @@ class Room:
         self.items = []
         self.inventory_lieux = set()
         self.inventory = {}
+        self.characters = {}
 
     
 
@@ -84,6 +85,19 @@ class Room:
             print("\nIl n'y a rien ici.")
         
         else:
-            print("\nLa pièce contient:")  # Parcourir les items du dictionnaire
+            print("\nOn voit:")  # Parcourir les items du dictionnaire
             for item in self.inventory_lieux:
                 print(f" -{item}")  # Utilise la méthode __str__() définie dans la classe Item
+            for characters in self.characters.values():
+                print (f" -{characters.name}, {characters.description}")
+
+        def add_character(self, character):
+            self.characters[character.name] = character
+
+    def remove_character(self, character_name):
+        """
+        Supprime un PNJ de la pièce.
+        :param character_name: Nom du PNJ à supprimer
+        """
+        if character_name in self.characters:
+            del self.characters[character_name]
