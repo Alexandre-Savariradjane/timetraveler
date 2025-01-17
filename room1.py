@@ -91,8 +91,8 @@ class Room:
             for characters in self.characters.values():
                 print (f" -{characters.name}, {characters.description}")
 
-        def add_character(self, character):
-            self.characters[character.name] = character
+    def add_character(self, character):
+        self.characters[character.name] = character
 
     def remove_character(self, character_name):
         """

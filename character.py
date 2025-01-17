@@ -1,3 +1,4 @@
+import random
 class Characters:
 
     def __init__(self, name, description, current_room, msgs):
@@ -7,21 +8,55 @@ class Characters:
         self.msgs = msgs
 
     def __str__(self):
-        return f"- {self.name} : {self.description}, {self.current_room}, {self.msgs}"
+        return f"- {self.name} : {self.description}"
 
     def move(self):
         """
-        Déplace le PNJ dans une pièce adjacente au hasard (1 chance sur 2).
-        :return: True si le PNJ s'est déplacé, False sinon.
+        Déplace le PNJ dans une pièce adjacente de façon aléatoire.
+        Retourne True si le PNJ a bougé, False sinon.
         """
-        import random
+        import game1  # Importation locale pour éviter les imports circulaires
+        if random.choice([True, False]):  # Chance 50% de se déplacer
+            if not self.current_room.exits:  # Si aucune sortie n'est disponible
+                if game1.DEBUG:  # Accède à DEBUG via game1
+                    print(f"DEBUG: {self.name} ne peut pas se déplacer, aucune sortie disponible.")
+                return False
 
-        if random.choice([True, False]):  # 1 chance sur 2 de se déplacer
-            if self.current_room.exits:  # Vérifie qu'il y a des pièces adjacentes
-                self.current_room = random.choice(list(self.current_room.exits.values()))
-                print(f"{self.name} se déplace de {self.current_room.exits.name} vers {self.current_room}. ")
+            # Choisir une direction au hasard parmi les sorties possibles
+            direction = random.choice(list(self.current_room.exits.keys()))
+            next_room = self.current_room.get_exit(direction)
+            
+            if next_room:
+                self.current_room = next_room  # Déplace le PNJ dans la nouvelle pièce
+                if game1.DEBUG:  # Accède à DEBUG via game1
+                    print(f"{self.name} se déplace vers {next_room.name}.")
                 return True
-        return False
-    
+            else:
+                if game1.DEBUG:  # Accède à DEBUG via game1
+                    print(f"{self.name} ne peut pas se déplacer dans cette direction.")
+                return False
+        else:
+            if game1.DEBUG:  # Accède à DEBUG via game1
+                print(f"{self.name} reste sur place.")
+            return False
 
+    def get_msgs(self):
+        """
+        Retourne le message suivant de manière cyclique parmi ceux du PNJ.
+        S'il ne reste plus de message, il recommence à zéro.
 
+        :return: Le message du PNJ
+        """
+        from game1 import DEBUG
+
+        if len(self.msgs) == 0:  # Si aucun message n'est défini
+            return "Ce personnage n'a rien à dire."
+
+        # Extraire le premier message
+        message = self.msgs.pop(0)
+        # Ajouter le message à la fin pour un comportement cyclique
+        self.msgs.append(message)
+
+        if DEBUG:
+            print(f"DEBUG: {self.name} dit : {message}")
+        return message

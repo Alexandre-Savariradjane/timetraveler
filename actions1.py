@@ -44,7 +44,18 @@ class Actions:
         False
 
         """
+        List_pnj = []
+        for epoque in game.rooms:
+            if epoque.characters:
+                for k,v in epoque.characters.items():
+                    List_pnj.append(epoque.characters[k])
         
+        for pnj in List_pnj:
+            if len(List_pnj) != 0:
+                pnj.move()
+
+        
+
         player = game.player
         l = len(list_of_words)
         # If the number of parameters is incorrect, print an error message and return False.
@@ -297,3 +308,24 @@ class Actions:
 
 
         return True
+    
+    def talk(game, list_of_words, number_of_parameters):
+            player = game.player
+            l = len(list_of_words)
+            current_room = game.player.current_room
+
+            if l != number_of_parameters + 1:
+                command_word = list_of_words[0]
+                print(MSG1.format(command_word=command_word))
+                return False
+                
+    # Chercher le PNJ dans la pièce actuelle
+            pnj_name = list_of_words[1]
+            pnj = current_room.characters.get(pnj_name)
+            if not pnj:
+                print(f"Il n'y a pas de {pnj_name} ici.")
+                return False
+            message = pnj.get_msgs()
+            print(message)
+            return True
+

@@ -9,7 +9,7 @@ from actions1 import Actions
 from item import Item
 from character import Characters
 
-DEBUG = True  # Passez à False pour désactiver le débogage.
+DEBUG = True  
 
 class Game:
 
@@ -53,6 +53,9 @@ class Game:
 
         drop = Command("drop", " : déposer les objets présents dans la pièce actuelle", Actions.drop, 1)
         self.commands["drop"] = drop
+
+        talk = Command("talk", " : faire parler les PNJ", Actions.talk, 1)
+        self.commands["talk"] = talk
 
 
 
@@ -107,8 +110,14 @@ class Game:
 
         # Create PNJ
 
-        Gandalf = Characters("Gandalf", "un magicien blanc" ,prehistory, "Abracadabra !")
+        Gandalf = Characters("Gandalf", "un magicien blanc" ,prehistory,msgs= ["Abracadabra !", "bonjour","test"])
         self.characters['Gandalf']=Gandalf
+
+        PNJ2 = Characters("PNJ2", "le deuxième PNJ" ,antiquity, "Test2")
+        self.characters['PNJ2']=PNJ2
+
+        PNJ3 = Characters("PNJ3", "le troisième PNJ" ,middle_age, "Test3")
+        self.characters['PNJ3']=PNJ3
 
 
         # Create exits for rooms
@@ -133,21 +142,12 @@ class Game:
         antiquity.inventory_lieux.add(vase)
 
         prehistory.characters = {"Gandalf" : Gandalf}
+        antiquity.characters = {"PNJ2" : PNJ2}
+        middle_age.characters = {"PNJ3" : PNJ3}
  
         # Appel de la méthode get_inventory
         self.player.get_inventory()
 
-    def game_loop(game):
-        while True:
-            command = input("> ")
-            game.parse_command(command)
-
-        # Déplacement des PNJ
-            for room in game.rooms.values():
-                for character in room.characters.values():
-                    moved = character.move()
-                    if DEBUG and moved:
-                        print(f"DEBUG: {character.name} s'est déplacé dans {character.current_room.name}.")
 
 
     # Play the game
