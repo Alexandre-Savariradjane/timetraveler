@@ -1,5 +1,7 @@
-# Description: The actions module.
-
+"""
+Ce module contient les différentes actions possibles dans le jeu, 
+notamment les déplacements, l'inventaire, et les interactions avec les PNJ.
+"""
 # The actions module contains the functions that are called when a command is executed.
 # Each function takes 3 parameters:
 # - game: the game object
