@@ -21,6 +21,9 @@ class Actions:
     """
     This class representall the actions that are possible
     """
+    def __init__(self, player, commands):
+        self.commands = commands
+        self.player = player
 
     def go(game, list_of_words, number_of_parameters):
         """
