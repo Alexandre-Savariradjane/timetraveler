@@ -283,7 +283,9 @@ class Game:
 
         # Setup player and starting room
 
-        self.player = Player(input("\nEntrez votre nom: "))
+        self.player = Player(input("\nEntrez votre nom: "),
+                             current_room=None,
+                             game=self)
         self.player.current_room = prehistory
         self.player.game = self
 
