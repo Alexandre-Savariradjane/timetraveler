@@ -1,5 +1,22 @@
+"""
+Ce fichier contient la classe Characters, qui gère les PNJ (personnages non-joueurs).
+"""
+
+
 import random
+import game1
+
 class Characters:
+    """
+    Représente un personnage non joueur (PNJ) dans le jeu.
+
+    Attributs :
+        name (str) : Nom du personnage.
+        description (str) : Description du personnage.
+        current_room (Room) : Salle actuelle du personnage.
+        msgs (list[str]) : Liste des messages associés au personnage.
+    """
+
 
     def __init__(self, name, description, current_room, msgs):
         self.name = name
@@ -15,7 +32,6 @@ class Characters:
         Déplace le PNJ dans une pièce adjacente de façon aléatoire.
         Retourne True si le PNJ a bougé, False sinon.
         """
-        import game1  # Importation locale pour éviter les imports circulaires
         if random.choice([True, False]):  # Chance 50% de se déplacer
             if not self.current_room.exits:  # Si aucune sortie n'est disponible
                 if game1.DEBUG:  # Accède à DEBUG via game1
@@ -25,7 +41,6 @@ class Characters:
             # Choisir une direction au hasard parmi les sorties possibles
             direction = random.choice(list(self.current_room.exits.keys()))
             next_room = self.current_room.get_exit(direction)
-            
             if next_room:
                 self.current_room = next_room  # Déplace le PNJ dans la nouvelle pièce
                 if game1.DEBUG:  # Accède à DEBUG via game1
@@ -47,7 +62,6 @@ class Characters:
 
         :return: Le message du PNJ
         """
-        from game1 import DEBUG
 
         if len(self.msgs) == 0:  # Si aucun message n'est défini
             return "Ce personnage n'a rien à dire."
@@ -58,4 +72,3 @@ class Characters:
         self.msgs.append(message)
 
         return message
-
