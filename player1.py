@@ -59,25 +59,24 @@ class Player():
                 self.history.append(self.current_room)
 
             # Vérification de la condition de victoire
-                if self.current_room.name == "Future" and not self.question_answered:
-                    # Affichage de la question sans la redemander à chaque mouvement
-                    print("\nVous êtes dans le futur. Si vous deviez le noter, combien mettriez-vous à ce jeu:")
-                    print("1 : (20 ou +)/20")
-                    print("2 : (entre 18 et 20)/20")
-                    print("3 : (entre 15 et 17)/20")
+                if self.current_room.name == "Future":
 
                     # Attente de la réponse du joueur
                     answer = input("Que choisissez-vous ? go 1, go 2, go 3\n").strip()
 
                     # Vérification de la réponse
-                    if answer == "go 1":
+                    if answer == "go 1" and "machine_enigma" in self.inventory:
                         print("\nVous avez répondu correctement ! Vous avez gagné ! 🎉")
                         self.game.victory = True
                         self.game.finished = True
+                    elif answer == "go 1":
+                        print("\nVous avez répondu correctement, mais vous n'avez pas la machine Enigma.")
+                        self.game.victory = False
+                        self.game.finished = False
 
                     elif answer == "go 2":
                     # Envoyer le joueur vers la salle correspondante à "2"
-                        print("\nMauvaise réponse. Vous êtes envoyé dans une autre pièce.")
+                        print("\nMauvaise réponse. Vous êtes envoyé dans une autre époque.")
                         self.current_room = self.current_room.exits.get("2")  # Déplacement automatique
                         print(self.current_room.get_long_description())
                         self.game.victory = False

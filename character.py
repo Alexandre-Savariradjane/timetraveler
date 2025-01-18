@@ -4,7 +4,7 @@ Ce fichier contient la classe Characters, qui gère les PNJ (personnages non-jou
 
 
 import random
-import game1
+
 
 class Characters:
     """
@@ -32,6 +32,7 @@ class Characters:
         Déplace le PNJ dans une pièce adjacente de façon aléatoire.
         Retourne True si le PNJ a bougé, False sinon.
         """
+        import game1
         if random.choice([True, False]):  # Chance 50% de se déplacer
             if not self.current_room.exits:  # Si aucune sortie n'est disponible
                 if game1.DEBUG:  # Accède à DEBUG via game1
