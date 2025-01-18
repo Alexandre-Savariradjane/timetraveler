@@ -67,24 +67,39 @@ class Player():
                     print("3 : (entre 15 et 17)/20")
 
                     # Attente de la réponse du joueur
-                    answer = input("Que choisissez-vous ? 1, 2, 3\n")
-                    answer = direction.split(" ")[-1]
+                    answer = input("Que choisissez-vous ? go 1, go 2, go 3\n").strip()
 
                     # Vérification de la réponse
-                    if answer == "1":
+                    if answer == "go 1":
                         print("\nVous avez répondu correctement ! Vous avez gagné ! 🎉")
                         self.game.victory = True
                         self.game.finished = True
-                    else:
-                        print("\nMauvaise réponse, vous n'avez pas gagné. Le jeu continue.")
+
+                    elif answer == "go 2":
+                    # Envoyer le joueur vers la salle correspondante à "2"
+                        print("\nMauvaise réponse. Vous êtes envoyé dans une autre pièce.")
+                        self.current_room = self.current_room.exits.get("2")  # Déplacement automatique
+                        print(self.current_room.get_long_description())
+                        self.game.victory = False
+                        self.game.finished = False
+
+                    elif answer == "go 3":
+                    # Envoyer le joueur vers la salle correspondante à "2"
+                        print("\nMauvaise réponse. Vous êtes envoyé dans une autre pièce.")
+                        self.current_room = self.current_room.exits.get("3")  # Déplacement automatique
+                        print(self.current_room.get_long_description())
+                        self.game.victory = False
+                        self.game.finished = False                
 
                     self.question_answered = True  # Marquer la question comme répondue
 
+                
                 elif self.current_room.name.endswith("_apocalyptic"):
                     if direction == "1":
                         print("\nVous avez échoué, c'est la fin du jeu...")
                         self.game.defeat = True
                         self.game.finished = True
+                        return 
                 
         else:
                 print("Il n'y a rien dans cette direction.")

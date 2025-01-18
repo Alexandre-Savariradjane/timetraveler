@@ -78,7 +78,7 @@ class Game:
                          )
         self.rooms.append(antiquity)
 
-        antiquity_apocalyptic = Room("Antiquity_apocalyptic", "… Vous êtes en face d’une armée de Romains, leur chef vous demande de capituler, que décidez vous de faire ?"
+        antiquity_apocalyptic = Room("Antiquity_apocalyptic", "à l'antiquité apocalyptique. Vous êtes en face d’une armée de Romains, leur chef vous demande de capituler, que décidez vous de faire ?"
                                      "\n1 : Capituler."
                                      "\n2 : Fuir"
                                      "\n3 : Vous battre"
@@ -91,7 +91,7 @@ class Game:
                           "\n 3 : La découverte du RNB en marque le début et celle du RAP en marque la fin.")
         self.rooms.append(middle_age)
 
-        middle_age_apocalyptic = Room("middle_age_apocalyptic", "…Vous êtes à côté d’un pommiers et vous apercevez une meute de loups devant vous et une meute de hyènes derrière vous, vous êtes paniqués mais vous devez prendre une décision pour espérer survivre:"
+        middle_age_apocalyptic = Room("middle_age_apocalyptic", "au moyen âge apocalyptique.Vous êtes à côté d’un pommiers et vous apercevez une meute de loups devant vous et une meute de hyènes derrière vous, vous êtes paniqués mais vous devez prendre une décision pour espérer survivre:"
                                       "\n1 : Faire le mort"
                                       "\n2 : Courir vers la droite"
                                       "\n3 : Grimper au pommier"
@@ -104,7 +104,7 @@ class Game:
                             "\n3 : Le siècle de la révolution")
         self.rooms.append(modern_period)
 
-        modern_period_apocalyptic = Room("Modern_period_apocalyptic", "... Vous souhaitez faire fortune dans le commerce pour cela vous hésitez entre trois marques à succès de votre époque que vous pourriez copier:"
+        modern_period_apocalyptic = Room("Modern_period_apocalyptic", "aux temps modernes apocalyptiques... Vous souhaitez faire fortune dans le commerce pour cela vous hésitez entre trois marques à succès de votre époque que vous pourriez copier:"
                                          "\n1 : Louis Vuitton"
                                          "\n2 : Apple"
                                          "\n3 : Une épicerie avec des épices du monde")
@@ -116,7 +116,7 @@ class Game:
                                   "\n 3 : Il n'y a jamais eu de Guerre Mondiale")                              
         self.rooms.append(contemporary_times)
 
-        contemporary_times_apocalyptic = Room("Contemporary_times_apocalyptic", "...Nous sommes le 11 septembre 2001, vous avez une forte envie de voyager, quel mode de transport allez vous choisir:"
+        contemporary_times_apocalyptic = Room("Contemporary_times_apocalyptic", "à l'époque contemporaine apocalyptique...Nous sommes le 11 septembre 2001, vous avez une forte envie de voyager, quel mode de transport allez vous choisir:"
                                               "\n1 : La voiture"
                                               "\n2 : L'avion"
                                               "\n3 : Le bateau")
@@ -129,7 +129,7 @@ class Game:
                       "\n3 : (entre 15 et 17)/20")
         self.rooms.append(future)
 
-        future_apocalyptic  = Room("Future_apocalyptic ", "Vous présidez une conférence réunissant toutes les puissances mondiales et ayant pour but de décider vous devez continuer à investir dans l’IA, lors du débat, les avis sont mitigés et aucune décision ne met tout le monde d’accord.En tant que président vous avez le dernier mot, que décidez vous de faire:"
+        future_apocalyptic  = Room("Future_apocalyptic ", "dans le futur apocalyptique...Vous présidez une conférence réunissant toutes les puissances mondiales et ayant pour but de décider vous devez continuer à investir dans l’IA, lors du débat, les avis sont mitigés et aucune décision ne met tout le monde d’accord.En tant que président vous avez le dernier mot, que décidez vous de faire:"
                                    "\n1 : continuer à investir dans l’IA "
                                    "\n2 : stopper immédiatement tout investissement"
                                    "\n3 : reporter le débat ")
@@ -192,11 +192,11 @@ class Game:
         prehistory.reponse = {"1": "1", "2": "2", "3": "3"}
 
 # Antiquity exits
-        antiquity.exits = {"1": antiquity_apocalyptic, "2": prehistory, "3": middle_age}
+        antiquity.exits = {"1": prehistory, "2": antiquity_apocalyptic, "3": middle_age}
         antiquity.reponse = {"1": "1", "2": "2", "3": "3"}
 
 # Antiquity Apocalyptic exits
-        antiquity_apocalyptic.exits = {"1": antiquity, "2": middle_age, "3": modern_period}
+        antiquity_apocalyptic.exits = {"1": antiquity_apocalyptic, "2": middle_age, "3": modern_period}
         antiquity_apocalyptic.reponse = {"1": "1", "2": "2", "3": "3"}
 
 # Middle Age exits
@@ -204,7 +204,7 @@ class Game:
         middle_age.reponse = {"1": "1", "2": "2", "3": "3"}
 
 # Middle Age Apocalyptic exits
-        middle_age_apocalyptic.exits = {"1": modern_period, "2": antiquity, "3": middle_age}
+        middle_age_apocalyptic.exits = {"1": middle_age_apocalyptic, "2": antiquity, "3": middle_age}
         middle_age_apocalyptic.reponse = {"1": "1", "2": "2", "3": "3"}
 
 # Modern Period exits
@@ -212,7 +212,7 @@ class Game:
         modern_period.reponse = {"1": "1", "2": "2", "3": "3"}
 
 # Modern Period Apocalyptic exits
-        modern_period_apocalyptic.exits = {"1": contemporary_times, "2": middle_age, "3": modern_period}
+        modern_period_apocalyptic.exits = {"1": modern_period_apocalyptic, "2": middle_age, "3": modern_period}
         modern_period_apocalyptic.reponse = {"1": "1", "2": "2", "3": "3"}
 
 # Contemporary Times exits
@@ -220,7 +220,7 @@ class Game:
         contemporary_times.reponse = {"1": "1", "2": "2", "3": "3"}
 
 # Contemporary Times Apocalyptic exits
-        contemporary_times_apocalyptic.exits = {"1": future, "2": modern_period, "3": contemporary_times}
+        contemporary_times_apocalyptic.exits = {"1": contemporary_times_apocalyptic, "2": modern_period, "3": contemporary_times}
         contemporary_times_apocalyptic.reponse = {"1": "1", "2": "2", "3": "3"}
 
 # Future exits
@@ -228,7 +228,7 @@ class Game:
         future.reponse = {"1": "1", "2": "2", "3": "3"}
 
 # Future Apocalyptic exits
-        future_apocalyptic.exits = {"1": prehistory, "2": contemporary_times, "3": future}
+        future_apocalyptic.exits = {"1": contemporary_times_apocalyptic, "2": middle_age_apocalyptic, "3": modern_period_apocalyptic}
         future_apocalyptic.reponse = {"1": "1", "2": "2", "3": "3"}
 
 
