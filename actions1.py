@@ -10,13 +10,17 @@
 # The error message is different depending on the number of parameters expected by the command.
 
 
-# The error message is stored in the MSG0 and MSG1 variables and formatted with the command_word variable, the first word in the command.
+# The error message is stored in the MSG0 and MSG1 variables and
+# formatted with the command_word variable,the first word in the command.
 # The MSG0 variable is used when the command does not take any parameter.
 MSG0 = "\nLa commande '{command_word}' ne prend pas de paramètre.\n"
 # The MSG1 variable is used when the command takes 1 parameter.
 MSG1 = "\nLa commande '{command_word}' prend 1 seul paramètre.\n"
 
 class Actions:
+    """
+    This class representall the actions that are possible
+    """
 
     def go(game, list_of_words, number_of_parameters):
         """
@@ -49,12 +53,11 @@ class Actions:
             if epoque.characters:
                 for k,v in epoque.characters.items():
                     List_pnj.append(epoque.characters[k])
-        
+
         for pnj in List_pnj:
             if len(List_pnj) != 0:
                 pnj.move()
 
-        
 
         player = game.player
         l = len(list_of_words)
@@ -65,7 +68,7 @@ class Actions:
             return False
 
         # Get the direction from the list of words.
-        numero_rep = list_of_words[1]  
+        numero_rep = list_of_words[1]
         valid_direction = ["1","2","3","4"]
         # Move the player in the direction specified by the parameter.
         player.move(game.player.current_room.reponse[numero_rep])
@@ -103,7 +106,7 @@ class Actions:
             command_word = list_of_words[0]
             print(MSG0.format(command_word=command_word))
             return False
-        
+
         # Set the finished attribute of the game object to True.
         player = game.player
         msg = f"\nMerci {player.name} d'avoir joué. Au revoir.\n"
@@ -143,7 +146,7 @@ class Actions:
             command_word = list_of_words[0]
             print(MSG0.format(command_word=command_word))
             return False
-        
+
         # Print the list of available commands.
         print("\nVoici les commandes disponibles:")
         for command in game.commands.values():
@@ -164,15 +167,15 @@ class Actions:
         if not player.history :
             print("\nVous ne pouvez pas revenir en arrière, l'historique est vide !\n")
             return False
-    
+
 
         # Pop the last room from the history and set it as the current room.
         player.current_room = player.history[-1]
         player.history.pop()
-        print(f"\nVous êtes de retour dans l'époque précédente : {player.current_room.get_long_description()}")
+        print(f"\nVous êtes de retour dans l'époque précédente :{player.current_room.get_long_description()}")
         print(player.get_history())
         return True
-    
+
     def inventory(game, list_of_words, number_of_parameters):
         player = game.player
         l = len(list_of_words)
@@ -194,7 +197,7 @@ class Actions:
             return False
 
         game.player.get_inventory_lieux()
-                
+
     def look(game, list_of_words, number_of_parameters):
         player = game.player
         room = game.player.current_room
@@ -204,11 +207,11 @@ class Actions:
             command_word = list_of_words[0]
             print(MSG0.format(command_word=command_word))
             return False
-        
+
         game.player.current_room.get_inventory_lieux()
 
         return True
-    
+
 
     def take(game, list_of_words, number_of_parameters):
         """
@@ -245,7 +248,7 @@ class Actions:
         print("\n cet objet n'est pas dans cette piece!\n")
 
         return False
-        
+
 
 
     def drop(game, list_of_words, number_of_parameters):
@@ -295,17 +298,16 @@ class Actions:
 
 
         return True
-    
-    def talk(game, list_of_words, number_of_parameters):
-            player = game.player
-            l = len(list_of_words)
-            current_room = game.player.current_room
 
-            if l != number_of_parameters + 1:
-                command_word = list_of_words[0]
-                print(MSG1.format(command_word=command_word))
-                return False
-                
+    def talk(game, list_of_words, number_of_parameters):
+        player = game.player
+        l = len(list_of_words)
+        current_room = game.player.current_room
+        if l != number_of_parameters + 1:
+            command_word = list_of_words[0]
+            print(MSG1.format(command_word=command_word))
+            return False
+
     # Chercher le PNJ dans la pièce actuelle
             pnj_name = list_of_words[1]
             pnj = current_room.characters.get(pnj_name)
