@@ -1,4 +1,9 @@
-# Define the Room class.
+"""
+Ce module contient la classe Room, qui représente une pièce dans un jeu d'aventure.
+La classe permet de définir des pièces avec des descriptions,
+des sorties et des objets à l'intérieur.
+"""
+
 
 class Room:
     """
@@ -12,30 +17,34 @@ class Room:
 
     Methods:
         __init__(self, name, description) : The constructor.
-        get_exit(self, direction): Returns the room connected in the given direction if it exists, otherwise None.
+        get_exit(self, direction): Returns the room connected in the given direction if it exists,
+        otherwise None.
         get_exit_string(self): Returns a formatted string describing the available exits.
         get_long_description(self): Returns a long description of the room, including its exits.
 
 
     Examples:
 
-    >>> room = Room("Forest", "dans une forêt enchantée. Vous entendez une brise légère à travers la cime des arbres.")
+    >>> room = Room("Forest", "dans une forêt enchantée.
+    Vous entendez une brise légère à travers la cime des arbres.")
     >>> room.name
     'Forest'
     >>> room.description
     'dans une forêt enchantée. Vous entendez une brise légère à travers la cime des arbres.'
     >>> room.exits
     {}
-    >>> room.exits["N"] = Room("Cave", "dans une grotte profonde et sombre. Des voix semblent provenir des profondeurs.")
+    >>> room.exits["N"] = Room("Cave",
+    "dans une grotte profonde et sombre. Des voix semblent provenir des profondeurs.")
     >>> room.get_exit("N").name
     'Cave'
     >>> room.get_exit_string()
     'Sorties: N'
     >>> print(room.get_long_description())
-    '\nVous dans une forêt enchantée. Vous entendez une brise légère à travers la cime des arbres.\n\nSorties: N\n'
+    '\nVous dans une forêt enchantée.
+    Vous entendez une brise légère à travers la cime des arbres.\n\nSorties: N\n'
     """
 
-    # Define the constructor. 
+    # Define the constructor.
     def __init__(self, name, description):
         self.name = name
         self.description = description
@@ -47,20 +56,31 @@ class Room:
         self.question = ""
         self.reponse = {}
 
-    
-
-
-
     # Define the get_exit method.
     def get_exit(self, direction):
+        """
+    Retourne la salle dans la direction spécifiée si elle existe, sinon None.
+
+    Parameters:
+        direction (str): La direction dans laquelle le joueur veut se déplacer.
+
+    Returns:
+        Room | None: La salle connectée ou None si la direction n'existe pas.
+        """
         # Return the room in the given direction if it exists.
         if direction in self.exits.keys():
             return self.exits[direction]
         else:
             return None
-    
+
     # Return a string describing the room's exits.
     def get_exit_string(self):
+        """
+    Retourne une chaîne formatée décrivant les sorties disponibles.
+
+    Returns:
+        str: Une chaîne indiquant les directions possibles à prendre.
+        """
         exit_string = f"Que choisissez-vous ?"
         for exit in self.exits.keys():
             if self.exits.get(exit) is not None:
@@ -70,12 +90,18 @@ class Room:
 
     # Return a long description of this room including exits.
     def get_long_description(self):
+        """
+    Retourne une description complète de la pièce, y compris les sorties disponibles.
+
+    Returns:
+        str: La description complète de la pièce et ses sorties.
+        """
         return f"\nVous êtes {self.description}\n\n{self.get_exit_string()}\n"
-    
+
     def get_inventory(self):
         if not self.inventory:  # Vérifier si l'inventaire est vide
             print("\nIl n'y a rien ici.")
-        
+
         else:
             print("\nLa pièce contient:")  # Parcourir les items du dictionnaire
             for item in self.inventory.values():
@@ -84,7 +110,7 @@ class Room:
     def get_inventory_lieux(self):
         if not self.inventory_lieux:  # Vérifier si l'inventaire est vide
             print("\nIl n'y a rien ici.")
-        
+
         else:
             print("\nOn voit:")  # Parcourir les items du dictionnaire
             for item in self.inventory_lieux:
@@ -97,12 +123,10 @@ class Room:
 
     def remove_character(self, character_name):
         """
-        Supprime un PNJ de la pièce.
-        :param character_name: Nom du PNJ à supprimer
+    Supprime un personnage non-joueur (PNJ) de la pièce.
+
+    Parameters:
+        character_name (str): Le nom du PNJ à supprimer.
         """
         if character_name in self.characters:
             del self.characters[character_name]
-
-
-
-
