@@ -57,6 +57,5 @@ class Characters:
         # Ajouter le message à la fin pour un comportement cyclique
         self.msgs.append(message)
 
-        if DEBUG:
-            print(f"DEBUG: {self.name} dit : {message}")
         return message
+

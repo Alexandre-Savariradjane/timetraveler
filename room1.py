@@ -44,6 +44,8 @@ class Room:
         self.inventory_lieux = set()
         self.inventory = {}
         self.characters = {}
+        self.question = ""
+        self.reponse = {}
 
     
 
@@ -51,7 +53,6 @@ class Room:
 
     # Define the get_exit method.
     def get_exit(self, direction):
-
         # Return the room in the given direction if it exists.
         if direction in self.exits.keys():
             return self.exits[direction]
@@ -60,7 +61,7 @@ class Room:
     
     # Return a string describing the room's exits.
     def get_exit_string(self):
-        exit_string = "Sorties: " 
+        exit_string = f"Que choisissez-vous ?"
         for exit in self.exits.keys():
             if self.exits.get(exit) is not None:
                 exit_string += exit + ", "
@@ -101,3 +102,7 @@ class Room:
         """
         if character_name in self.characters:
             del self.characters[character_name]
+
+
+
+

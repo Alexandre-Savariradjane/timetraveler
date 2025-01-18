@@ -65,23 +65,10 @@ class Actions:
             return False
 
         # Get the direction from the list of words.
-        direction = list_of_words[1]  
-        valid_direction = {"N","S","E","O"}
-
-        if direction in ['n', 'Nord', 'nord', 'NORD']:
-            direction = 'N'
-        if direction in ['s', 'sud','Sud','SUD']:
-            direction = 'S'
-        if direction in ['e','Est','est','EST']:
-            direction = 'E'
-        if direction in ['o','Ouest','ouest','OUEST']:
-            direction = 'O'
-        if direction not in valid_direction:
-            print(f"\nDirection '{direction}' non reconnue.\n")
-            print(player.current_room.get_long_description())
-            return False
+        numero_rep = list_of_words[1]  
+        valid_direction = ["1","2","3","4"]
         # Move the player in the direction specified by the parameter.
-        player.move(direction)
+        player.move(game.player.current_room.reponse[numero_rep])
         player.history
         return True
 
@@ -328,4 +315,3 @@ class Actions:
             message = pnj.get_msgs()
             print(message)
             return True
-
