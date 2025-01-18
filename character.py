@@ -46,14 +46,12 @@ class Characters:
                 if game1.DEBUG:  # Accède à DEBUG via game1
                     print(f"{self.name} se déplace vers {next_room.name}.")
                 return True
-            else:
-                if game1.DEBUG:  # Accède à DEBUG via game1
-                    print(f"{self.name} ne peut pas se déplacer dans cette direction.")
-                return False
-        else:
             if game1.DEBUG:  # Accède à DEBUG via game1
-                print(f"{self.name} reste sur place.")
+                print(f"{self.name} ne peut pas se déplacer dans cette direction.")
             return False
+        if game1.DEBUG:  # Accède à DEBUG via game1
+            print(f"{self.name} reste sur place.")
+        return False
 
     def get_msgs(self):
         """
