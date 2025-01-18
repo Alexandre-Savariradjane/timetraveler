@@ -1,4 +1,9 @@
-# Description: Game class
+"""
+Classe principale du jeu.
+
+Ce fichier contient la définition de la classe `Game`, qui gère les mécaniques principales
+du jeu.
+"""
 
 # Import modules
 
@@ -9,7 +14,7 @@ from actions1 import Actions
 from item import Item
 from character import Characters
 
-DEBUG = True  
+DEBUG = True
 
 class Game:
 
@@ -24,10 +29,13 @@ class Game:
         self.items = {}
         self.characters = {}
 
-    
+
     # Setup the game
     def setup(self):
-
+        """
+        Configure le jeu en initialisant les commandes, les salles, les objets, les PNJ,
+        et le joueur.
+        """
         # Setup commands
 
         help = Command("help", " : afficher cette aide", Actions.help, 0)
@@ -36,87 +44,122 @@ class Game:
         quit = Command("quit", " : quitter le jeu", Actions.quit, 0)
         self.commands["quit"] = quit
 
-        go = Command("go", " <direction> : se déplacer dans une direction cardinale (N, E, S, O)", Actions.go, 1)
+        go = Command("go", " <direction> : se déplacer dans une direction cardinale (N, E, S, O)",
+                      Actions.go, 1)
         self.commands["go"] = go
 
         back = Command("back", " : retourner en arrière", Actions.back,0)
         self.commands["back"] = back
 
-        inventory = Command("inventory", " : afficher l'inventaire des objets", Actions.inventory, 0)
+        inventory = Command("inventory", " : afficher l'inventaire des objets",
+                             Actions.inventory, 0)
         self.commands["inventory"] = inventory
-    
-        inventory_lieux = Command("inventory_lieux", " : afficher l'inventaire des objets présents dans la pièce", Actions.inventory_lieux, 0)
+
+        inventory_lieux = Command("inventory_lieux",
+                                  " : afficher l'inventaire des objets présents dans la pièce",
+                                    Actions.inventory_lieux, 0)
         self.commands["inventory_lieux"] = inventory_lieux
 
-        look = Command("look", " : afficher les objets présents dans la pièce actuelle", Actions.look, 0)
+        look = Command("look",
+                        " : afficher les objets présents dans la pièce actuelle",
+                          Actions.look, 0)
         self.commands["look"] = look
 
-        take = Command("take", " : prendre les objets présents dans la pièce actuelle", Actions.take, 1)
+        take = Command("take",
+                        " : prendre les objets présents dans la pièce actuelle",
+                          Actions.take, 1)
         self.commands["take"] = take
 
-        drop = Command("drop", " : déposer les objets présents dans la pièce actuelle", Actions.drop, 1)
+        drop = Command("drop", " : déposer les objets présents dans la pièce actuelle",
+                        Actions.drop, 1)
         self.commands["drop"] = drop
 
-        talk = Command("talk", " : faire parler les PNJ", Actions.talk, 1)
+        talk = Command("talk", " : faire parler les PNJ",
+                        Actions.talk, 1)
         self.commands["talk"] = talk
 
 
 
-        
+
 
         # Setup rooms
 
-        prehistory = Room("Prehistory", "à la préhistoire. Quel événement marque respectivement le début et la fin de la préhistoire ?"
-                          "\n1 : C’est l’apparition de l’Homme qui en marque le début et celle de l’écriture qui en marque la fin"
-                          "\n2 : C’est l’apparition des dinosaures qui en marque le début et la victoire des hommes sur eux qui en marque la fin.")
+        prehistory = Room("Prehistory", "à la préhistoire."
+                           "Quel événement marque respectivement"
+                           "le début et la fin de la préhistoire ?"
+                          "\n1 : C’est l’apparition de l’Homme qui"
+                          "en marque le début et celle de l’écriture qui en marque la fin"
+                          "\n2 : C’est l’apparition des dinosaures"
+                          "qui en marque le début et la victoire des hommes"
+                          "sur eux qui en marque la fin.")
         self.rooms.append(prehistory)
 
-        antiquity = Room("Antiquity", "à l'antiquité. Quand ont eu lieu les premiers Jeux Olympiques ?"
+        antiquity = Room("Antiquity", "à l'antiquité."
+                         "Quand ont eu lieu les premiers Jeux Olympiques ?"
                          "\n1 : Avant l’Antiquité."
                          "\n2 : Après l’Antiquité."
                          "\n3 : Pendant l’Antiquité."
                          )
         self.rooms.append(antiquity)
 
-        antiquity_apocalyptic = Room("Antiquity_apocalyptic", "à l'antiquité apocalyptique. Vous êtes en face d’une armée de Romains, leur chef vous demande de capituler, que décidez vous de faire ?"
+        antiquity_apocalyptic = Room("Antiquity_apocalyptic",
+                                      "à l'antiquité apocalyptique. Vous êtes en face d’une armée de Romains,"
+                                      "leur chef vous demande de capituler, que décidez vous de faire ?"
                                      "\n1 : Capituler."
                                      "\n2 : Fuir"
                                      "\n3 : Vous battre"
                                      )
         self.rooms.append(antiquity_apocalyptic)
 
-        middle_age = Room("middle_age", "au moyen âge. Quel évènement marque le début et la fin du Moyen-Age ?"
-                          "\n 1 : La chute de l’empire Romain en marque le début et la découverte de l’Amérique en marque la fin."
-                          "\n 2 : Le couronnement de Charlemagne marque le début et le changement de nom de la GAULE pour devenir la FRANCE la fin"
-                          "\n 3 : La découverte du RNB en marque le début et celle du RAP en marque la fin.")
+        middle_age = Room("middle_age",
+                           "au moyen âge. Quel évènement marque le début et la fin du Moyen-Age ?"
+                          "\n 1 : La chute de l’empire Romain en marque"
+                          "le début et la découverte de l’Amérique en marque la fin."
+                          "\n 2 : Le couronnement de Charlemagne"
+                          "marque le début et le changement de nom de la GAULE pour devenir la FRANCE la fin"
+                          "\n 3 : La découverte du RNB en marque"
+                          "le début et celle du RAP en marque la fin.")
         self.rooms.append(middle_age)
 
-        middle_age_apocalyptic = Room("middle_age_apocalyptic", "au moyen âge apocalyptique.Vous êtes à côté d’un pommiers et vous apercevez une meute de loups devant vous et une meute de hyènes derrière vous, vous êtes paniqués mais vous devez prendre une décision pour espérer survivre:"
+        middle_age_apocalyptic = Room("middle_age_apocalyptic",
+                                       "au moyen âge apocalyptique.Vous êtes à côté d’un"
+                                       "pommiers et vous apercevez une meute de loups devant vous"
+                                       " et une meute de hyènes derrière vous, vous êtes paniqués mais"
+                                       "vous devez prendre une décision pour espérer survivre:"
                                       "\n1 : Faire le mort"
                                       "\n2 : Courir vers la droite"
                                       "\n3 : Grimper au pommier"
                                       )
         self.rooms.append(middle_age_apocalyptic)
 
-        modern_period = Room("Modern_period", "aux temps modernes. Comment se nomme le siècle le plus connu des Temps Modernes ?"
+        modern_period = Room("Modern_period", "aux temps modernes."
+                             "Comment se nomme le siècle le plus connu des Temps Modernes ?"
                             "\n1 : Le siècle des Lumières"
                             "\n2 : Le siècle de la musique"
                             "\n3 : Le siècle de la révolution")
         self.rooms.append(modern_period)
 
-        modern_period_apocalyptic = Room("Modern_period_apocalyptic", "aux temps modernes apocalyptiques... Vous souhaitez faire fortune dans le commerce pour cela vous hésitez entre trois marques à succès de votre époque que vous pourriez copier:"
+        modern_period_apocalyptic = Room("Modern_period_apocalyptic",
+                                          "aux temps modernes apocalyptiques... "
+                                          "Vous souhaitez faire fortune dans le commerce "
+                                          "pour cela vous hésitez entre trois marques à succès"
+                                          " de votre époque que vous pourriez copier:"
                                          "\n1 : Louis Vuitton"
                                          "\n2 : Apple"
                                          "\n3 : Une épicerie avec des épices du monde")
         self.rooms.append(modern_period_apocalyptic)
 
-        contemporary_times = Room("Contemporary_times", "à l'époque contemporaine. Quelles sont les dates du début et de la fin de la première guerre mondiale ?"
+        contemporary_times = Room("Contemporary_times", "à l'époque contemporaine."
+                                  " Quelles sont les dates du début et de la fin de la première guerre mondiale ?"
                                   "\n 1 : 1914 - 1918"
                                   "\n 2 : 1939 - 1945"
                                   "\n 3 : Il n'y a jamais eu de Guerre Mondiale")                              
         self.rooms.append(contemporary_times)
 
-        contemporary_times_apocalyptic = Room("Contemporary_times_apocalyptic", "à l'époque contemporaine apocalyptique...Nous sommes le 11 septembre 2001, vous avez une forte envie de voyager, quel mode de transport allez vous choisir:"
+        contemporary_times_apocalyptic = Room("Contemporary_times_apocalyptic",
+                                               "à l'époque contemporaine apocalyptique..."
+                                               "Nous sommes le 11 septembre 2001, vous avez une forte"
+                                               " envie de voyager, quel mode de transport allez vous choisir:"
                                               "\n1 : La voiture"
                                               "\n2 : L'avion"
                                               "\n3 : Le bateau")
@@ -129,7 +172,12 @@ class Game:
                       "\n3 : (entre 15 et 17)/20")
         self.rooms.append(future)
 
-        future_apocalyptic  = Room("Future_apocalyptic ", "dans le futur apocalyptique...Vous présidez une conférence réunissant toutes les puissances mondiales et ayant pour but de décider vous devez continuer à investir dans l’IA, lors du débat, les avis sont mitigés et aucune décision ne met tout le monde d’accord.En tant que président vous avez le dernier mot, que décidez vous de faire:"
+        future_apocalyptic  = Room("Future_apocalyptic ", "dans le futur apocalyptique"
+                                   "...Vous présidez une conférence réunissant toutes"
+                                   " les puissances mondiales et ayant pour but de décider"
+                                   " vous devez continuer à investir dans l’IA, lors du débat,"
+                                   " les avis sont mitigés et aucune décision ne met tout le monde d’accord"
+                                   ".En tant que président vous avez le dernier mot, que décidez vous de faire:"
                                    "\n1 : continuer à investir dans l’IA "
                                    "\n2 : stopper immédiatement tout investissement"
                                    "\n3 : reporter le débat ")
@@ -151,38 +199,38 @@ class Game:
         self.items['machine_enigma']=machine_enigma
         parchemin = Item("parchemin", "contient un odre de mission impérial", 0.5)
         self.items['parchemin']=parchemin
-        
+
 
         # Create PNJ
 
-        Toumaï = Characters("Toumaï", "le premier homme préhistorique" ,prehistory,msgs= ["Tu sembles perdu", "Les animaux sont tes alliés","Suis les traces de ce cerf..."])
-        self.characters['Toumaï']=Toumaï
+        lucy = Characters("lucy", "le premier homme préhistorique" ,prehistory,msgs= ["Tu sembles perdu", "Les animaux sont tes alliés","Suis les traces de ce cerf..."])
+        self.characters['lucy']=lucy
 
-        Socrate = Characters("Socrate", "un vieil homme sage" ,antiquity, msgs = ["Connais-toi toi même...", "Je ne suis ni Athénien ni grec, je suis un citoyen du monde",
+        socrate = Characters("socrate", "un vieil homme sage" ,antiquity, msgs = ["Connais-toi toi même...", "Je ne suis ni Athénien ni grec, je suis un citoyen du monde",
                              "Tout ce que je sais, c'est que je ne sais rien"])
-        self.characters['Socrate']=Socrate
+        self.characters['socrate']=socrate
 
-        Jeanne_d_Arc = Characters("Jeanne_d_Arc", "une jeune femme vête d'une armure et un drapeau français à la main" ,middle_age,
+        jeanne_d_arc = Characters("jeanne_d_arc", "une jeune femme vête d'une armure et un drapeau français à la main" ,middle_age,
                                    msgs = ["Seul un coeur pur peut guider à la victoire","Vivre, c’est du courage, et non pas de la crainte !"
                                    "Je n’ai pas peur... "])
-        self.characters['Jeanne_d_Arc']=Jeanne_d_Arc
+        self.characters['jeanne_d_arc']=jeanne_d_arc
 
-        Napoléon = Characters("Napoléon", "un homme petit de taille mais d'une grande présence" ,modern_period, msgs = ["Un génie stratégique ne suit pas les règles",
+        napoleon = Characters("napoleon", "un homme petit de taille mais d'une grande présence" ,modern_period, msgs = ["Un génie stratégique ne suit pas les règles",
                               "Si tu veux devenir plus grand, il faut aller au-delà des frontières",
                              "L'imagination gouverne le monde"])
-        self.characters['Napoléon']=Napoléon
+        self.characters['napoleon']=napoleon
 
-        Alan_Turing = Characters("Alan_Turing", "un homme intelligent et réservé" ,contemporary_times, msgs = ["Le logique est la clé pour déverouiller l'inconnu",
+        alan_turing = Characters("alan_turing", "un homme intelligent et réservé" ,contemporary_times, msgs = ["Le logique est la clé pour déverouiller l'inconnu",
                               "Commence par déchiffrer les codes invisibles"])
-        self.characters['Alan_Turing']=Alan_Turing
+        self.characters['alan_turing']=alan_turing
 
-        Elon_Musk = Characters("Elon_Musk", "un génie excentrique" ,future, msgs = [ "Je travaille sur le futur de l'humanité",
+        elon_musk = Characters("elon_musk", "un génie excentrique" ,future, msgs = [ "Je travaille sur le futur de l'humanité",
                               "Avez-vous des idées révolutionnaires à partager ?"])
-        self.characters['Elon_Musk']=Elon_Musk
+        self.characters['elon_musk']=elon_musk
 
-        Thanos = Characters("Thanos", "un géant à la peau violette avec le gant de l'infini" ,future_apocalyptic, msgs = ["Tout équilibre nécessite un sacrifice",
+        thanos = Characters("thanos", "un géant à la peau violette avec le gant de l'infini" ,future_apocalyptic, msgs = ["Tout équilibre nécessite un sacrifice",
                               "Le destin est inévitable"])
-        self.characters['Thanos']=Thanos         
+        self.characters['thanos']=thanos
 
 
         # Create exits for rooms
@@ -238,7 +286,7 @@ class Game:
         self.player = Player(input("\nEntrez votre nom: "))
         self.player.current_room = prehistory
         self.player.game = self
-        
+
         self.player.inventory = {
             "torch" : torch
         }
@@ -249,17 +297,17 @@ class Game:
         contemporary_times.inventory_lieux.add(machine_enigma)
         future.inventory_lieux.add(tesla)
         future_apocalyptic.inventory_lieux.add(gant_de_l_infini)
-        
-        
 
-        prehistory.characters = {"Toumaï" : Toumaï}
-        antiquity.characters = {"Socrate" : Socrate}
-        middle_age.characters = {"Jeanne_d_Arc" : Jeanne_d_Arc}
-        modern_period.characters = {"Napoléon" : Napoléon}
-        contemporary_times.characters = {"Alan_Turing" : Alan_Turing}
-        future.characters = {"Elon_Musk" : Elon_Musk}
-        future_apocalyptic = {"Thanos" : Thanos}
- 
+
+
+        prehistory.characters = {"lucy" : lucy}
+        antiquity.characters = {"Socrate" : socrate}
+        middle_age.characters = {"Jeanne_d_Arc" : jeanne_d_arc}
+        modern_period.characters = {"Napoléon" : napoleon}
+        contemporary_times.characters = {"Alan_Turing" : alan_turing}
+        future.characters = {"Elon_Musk" : elon_musk}
+        future_apocalyptic = {"Thanos" : thanos}
+
 
 
 
@@ -304,7 +352,7 @@ class Game:
         else:
             command = self.commands[command_word]
             command.action(self, list_of_words, command.number_of_parameters)
-        
+
         if self.finished:
             return
 
@@ -317,13 +365,12 @@ class Game:
         print("Entrez 'help' si vous avez besoin d'aide.")
         print(self.player.current_room.get_long_description())
 
-    
+
 
 def main():
     # Create a game object and play the game
     Game().play()
-    
+
 
 if __name__ == "__main__":
     main()
-

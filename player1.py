@@ -38,7 +38,7 @@ class Player():
     """
 
     # Define the constructor.
-    def __init__(self, name):
+    def __init__(self, name, game):
         """
     Initialise un nouveau joueur avec un nom et un objet de jeu.
 
@@ -54,7 +54,7 @@ class Player():
         self.inventory = {}
         self.inventory_lieux = ()
         self.question_answered = False
-
+        self.game = game
 
     def get_history(self):
         """

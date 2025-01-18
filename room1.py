@@ -70,8 +70,8 @@ class Room:
         # Return the room in the given direction if it exists.
         if direction in self.exits.keys():
             return self.exits[direction]
-        else:
-            return None
+
+        return None
 
     # Return a string describing the room's exits.
     def get_exit_string(self):
@@ -81,7 +81,7 @@ class Room:
     Returns:
         str: Une chaîne indiquant les directions possibles à prendre.
         """
-        exit_string = f"Que choisissez-vous ?"
+        exit_string = "Que choisissez-vous ?"
         for exit in self.exits.keys():
             if self.exits.get(exit) is not None:
                 exit_string += exit + ", "
@@ -99,6 +99,9 @@ class Room:
         return f"\nVous êtes {self.description}\n\n{self.get_exit_string()}\n"
 
     def get_inventory(self):
+        """
+        Retourne l'inventaire du joueur
+        """
         if not self.inventory:  # Vérifier si l'inventaire est vide
             print("\nIl n'y a rien ici.")
 
@@ -108,6 +111,9 @@ class Room:
                 print(f" -{item}")  # Utilise la méthode __str__() définie dans la classe Item
 
     def get_inventory_lieux(self):
+        """
+        Retourne l'inventaire de la pièce
+        """
         if not self.inventory_lieux:  # Vérifier si l'inventaire est vide
             print("\nIl n'y a rien ici.")
 
@@ -119,6 +125,9 @@ class Room:
                 print (f" -{characters.name}, {characters.description}")
 
     def add_character(self, character):
+        """
+        Pour ajouter des pnj à la pièce
+        """
         self.characters[character.name] = character
 
     def remove_character(self, character_name):
