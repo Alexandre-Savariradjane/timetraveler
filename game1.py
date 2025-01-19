@@ -31,6 +31,8 @@ class Game:
         self.player = None
         self.items = {}
         self.characters = {}
+        self.Actions = Actions(self.player, self.commands)
+
 
 
     # Setup the game
@@ -41,44 +43,44 @@ class Game:
         """
         # Setup commands
 
-        help = Command("help", " : afficher cette aide", Actions.help, 0)
+        help = Command("help", " : afficher cette aide", self.Actions.help, 0)
         self.commands["help"] = help
 
-        quit = Command("quit", " : quitter le jeu", Actions.quit, 0)
+        quit = Command("quit", " : quitter le jeu", self.Actions.quit, 0)
         self.commands["quit"] = quit
 
         go = Command("go", " <direction> : se déplacer dans une direction cardinale (N, E, S, O)",
-                      Actions.go, 1)
+                      self.Actions.go, 1)
         self.commands["go"] = go
 
-        back = Command("back", " : retourner en arrière", Actions.back,0)
+        back = Command("back", " : retourner en arrière", self.Actions.back,0)
         self.commands["back"] = back
 
         inventory = Command("inventory", " : afficher l'inventaire des objets",
-                             Actions.inventory, 0)
+                             self.Actions.inventory, 0)
         self.commands["inventory"] = inventory
 
         inventory_lieux = Command("inventory_lieux",
                                   " : afficher l'inventaire des objets présents dans la pièce",
-                                    Actions.inventory_lieux, 0)
+                                    self.Actions.inventory_lieux, 0)
         self.commands["inventory_lieux"] = inventory_lieux
 
         look = Command("look",
                         " : afficher les objets présents dans la pièce actuelle",
-                          Actions.look, 0)
+                          self.Actions.look, 0)
         self.commands["look"] = look
 
         take = Command("take",
                         " : prendre les objets présents dans la pièce actuelle",
-                          Actions.take, 1)
+                          self.Actions.take, 1)
         self.commands["take"] = take
 
         drop = Command("drop", " : déposer les objets présents dans la pièce actuelle",
-                        Actions.drop, 1)
+                        self.Actions.drop, 1)
         self.commands["drop"] = drop
 
         talk = Command("talk", " : faire parler les PNJ",
-                        Actions.talk, 1)
+                        self.Actions.talk, 1)
         self.commands["talk"] = talk
 
 
@@ -349,6 +351,12 @@ class Game:
         future.characters = {"Elon_Musk" : elon_musk}
         future_apocalyptic = {"Thanos" : thanos}
 
+    def go_adapter(game, list_of_words, number_of_parameters):
+        """
+        Cette fonction d'adaptation gère les paramètres de la commande 'go'.
+        Elle est appelée dans self.commands["go"] pour s'assurer que les arguments sont correctement passés.
+        """
+        return game.actions.go(game, list_of_words, number_of_parameters)
 
 
 

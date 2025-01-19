@@ -27,7 +27,7 @@ class Actions:
         self.commands = commands
         self.player = player
 
-    def go(game, list_of_words, number_of_parameters):
+    def go(self,game, list_of_words, number_of_parameters):
         """
         Move the player in the direction specified by the parameter.
         The parameter must be a cardinal direction (N, E, S, O).
@@ -80,7 +80,7 @@ class Actions:
         player.history
         return True
 
-    def quit(game, list_of_words, number_of_parameters):
+    def quit(self,game, list_of_words, number_of_parameters):
         """
         Quit the game.
 
@@ -119,7 +119,7 @@ class Actions:
         game.finished = True
         return True
 
-    def help(game, list_of_words, number_of_parameters):
+    def help(self,game, list_of_words, number_of_parameters):
         """
         Print the list of available commands.
         
@@ -160,7 +160,10 @@ class Actions:
         return True
 
             # Define the go_back method.
-    def back(game, list_of_words, number_of_parameters):
+    def back(self,game, list_of_words, number_of_parameters):
+        """
+        Permet au joueur de retourner à l'époque précédente.
+        """
         player = game.player
         l = len(list_of_words)
         # If the number of parameters is incorrect, print an error message and return False.
@@ -181,7 +184,10 @@ class Actions:
         print(player.get_history())
         return True
 
-    def inventory(game, list_of_words, number_of_parameters):
+    def inventory(self,game, list_of_words, number_of_parameters):
+        """
+        Affiche l'inventaire du joueur.
+        """
         player = game.player
         l = len(list_of_words)
         # If the number of parameters is incorrect, print an error message and return False.
@@ -192,7 +198,10 @@ class Actions:
 
         game.player.get_inventory()
 
-    def inventory_lieux(game, list_of_words, number_of_parameters):
+    def inventory_lieux(self,game, list_of_words, number_of_parameters):
+        """
+        Affiche l'inventaire du lieu
+        """
         player = game.player
         l = len(list_of_words)
         # If the number of parameters is incorrect, print an error message and return False.
@@ -203,7 +212,10 @@ class Actions:
 
         game.player.get_inventory_lieux()
 
-    def look(game, list_of_words, number_of_parameters):
+    def look(self,game, list_of_words, number_of_parameters):
+        """
+        Permet au joueur de regarder les pnj et items de l'époque
+        """
         player = game.player
         room = game.player.current_room
         l = len(list_of_words)
@@ -218,7 +230,7 @@ class Actions:
         return True
 
 
-    def take(game, list_of_words, number_of_parameters):
+    def take(self,game, list_of_words, number_of_parameters):
         """
         Permet au joueur de ramasser un objet dans la pièce actuelle.
 
@@ -256,7 +268,7 @@ class Actions:
 
 
 
-    def drop(game, list_of_words, number_of_parameters):
+    def drop(self,game, list_of_words, number_of_parameters):
         """
         Permet au joueur de déposer un objet dans la pièce actuelle.
 
@@ -304,7 +316,7 @@ class Actions:
 
         return True
 
-    def talk(game, list_of_words, number_of_parameters):
+    def talk(self,game, list_of_words, number_of_parameters):
         player = game.player
         l = len(list_of_words)
         current_room = game.player.current_room
@@ -314,11 +326,11 @@ class Actions:
             return False
 
     # Chercher le PNJ dans la pièce actuelle
-            pnj_name = list_of_words[1]
-            pnj = current_room.characters.get(pnj_name)
-            if not pnj:
+        pnj_name = list_of_words[1]
+        pnj = current_room.characters.get(pnj_name)
+        if not pnj:
                 print(f"Il n'y a pas de {pnj_name} ici.")
                 return False
-            message = pnj.get_msgs()
-            print(message)
-            return True
+        message = pnj.get_msgs()
+        print(message)
+        return True

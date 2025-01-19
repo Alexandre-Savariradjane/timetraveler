@@ -46,7 +46,7 @@ class Player():
         name (str): Le nom du joueur.
         game (Game): L'objet représentant le jeu.
     """
-    # code existant
+
 
         self.name = name
         self.current_room = current_room
