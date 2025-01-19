@@ -351,18 +351,28 @@ class Game:
         future.characters = {"Elon_Musk" : elon_musk}
         future_apocalyptic = {"Thanos" : thanos}
 
-    def go_adapter(game, list_of_words, number_of_parameters):
-        """
-        Cette fonction d'adaptation gère les paramètres de la commande 'go'.
-        Elle est appelée dans self.commands["go"] pour s'assurer que les arguments sont correctement passés.
-        """
-        return game.actions.go(game, list_of_words, number_of_parameters)
-
-
 
 
     # Play the game
     def play(self):
+        """
+   Lance la boucle principale du jeu.
+
+
+   Cette méthode gère le déroulement du jeu en demandant des commandes
+   au joueur, en traitant ces commandes et en vérifiant les conditions
+   de fin du jeu.
+
+
+   La boucle continue tant que le jeu n'est pas terminé, soit par la victoire,
+   soit par une commande de sortie du joueur.
+
+
+   Raises:
+       Exception: Peut lever une exception si une erreur inattendue survient
+       pendant l'exécution des commandes.
+       """
+
         self.setup()
         self.print_welcome()
 
@@ -388,6 +398,17 @@ class Game:
 
     # Process the command entered by the player
     def process_command(self, command_string) -> None:
+        """
+   Traite la commande saisie par le joueur.
+  
+   Cette méthode divise la commande en mots, vérifie si elle est valide,
+   puis exécute l'action correspondante si elle existe.
+
+
+   Args:
+       command string (str): La commande saisie par le joueur.
+       """
+
 
         # Split the command string into a list of words
         list_of_words = command_string.split(" ")
@@ -402,11 +423,18 @@ class Game:
             command = self.commands[command_word]
             command.action(self, list_of_words, command.number_of_parameters)
 
-        if self.finished:
-            return
+
 
     # Print the welcome message
     def print_welcome(self):
+        """
+   Affiche le message de bienvenue au début du jeu.
+
+
+   Ce message introduit l'histoire du jeu et donne des instructions de base
+   au joueur, y compris la commande d'aide disponible.
+       """
+
         print(f"\nBienvenue {self.player.name} dans ce jeu d'aventure !"
               "\nLors d'une expérience qui a mal tournée,"
               "vous avez été envoyé dans le passé or votre objectif est d'aller dans le futur."
@@ -420,6 +448,13 @@ class Game:
 
 
 def main():
+    """
+   Point d'entrée principal du jeu.
+
+
+   Cette fonction crée une instance de la classe Game et lance le jeu.
+   """
+
     # Create a game object and play the game
     Game().play()
 

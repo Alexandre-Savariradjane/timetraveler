@@ -53,14 +53,14 @@ class Actions:
         False
 
         """
-        List_pnj = []
+        list_pnj = []
         for epoque in game.rooms:
             if epoque.characters:
-                for k,v in epoque.characters.items():
-                    List_pnj.append(epoque.characters[k])
+                for k in epoque.characters.keys():
+                    list_pnj.append(epoque.characters[k])
 
-        for pnj in List_pnj:
-            if len(List_pnj) != 0:
+        for pnj in list_pnj:
+            if len(list_pnj) != 0:
                 pnj.move()
 
 
@@ -74,10 +74,8 @@ class Actions:
 
         # Get the direction from the list of words.
         numero_rep = list_of_words[1]
-        valid_direction = ["1","2","3","4"]
         # Move the player in the direction specified by the parameter.
         player.move(game.player.current_room.reponse[numero_rep])
-        player.history
         return True
 
     def quit(self,game, list_of_words, number_of_parameters):
@@ -188,7 +186,6 @@ class Actions:
         """
         Affiche l'inventaire du joueur.
         """
-        player = game.player
         l = len(list_of_words)
         # If the number of parameters is incorrect, print an error message and return False.
         if l != number_of_parameters + 1:
@@ -202,7 +199,6 @@ class Actions:
         """
         Affiche l'inventaire du lieu
         """
-        player = game.player
         l = len(list_of_words)
         # If the number of parameters is incorrect, print an error message and return False.
         if l != number_of_parameters + 1:
@@ -216,8 +212,6 @@ class Actions:
         """
         Permet au joueur de regarder les pnj et items de l'époque
         """
-        player = game.player
-        room = game.player.current_room
         l = len(list_of_words)
         # If the number of parameters is incorrect, print an error message and return False.
         if l != number_of_parameters + 1:
@@ -242,9 +236,7 @@ class Actions:
         Returns:
             bool: True si l'objet a été pris avec succès, False sinon.
         """
-        player = game.player
         l = len(list_of_words)
-        room = game.player.current_room
 
         # Vérifie que le nombre de paramètres est correct
         if l != number_of_parameters + 1:
@@ -317,7 +309,9 @@ class Actions:
         return True
 
     def talk(self,game, list_of_words, number_of_parameters):
-        player = game.player
+        """
+        Fait parler les pnj
+        """
         l = len(list_of_words)
         current_room = game.player.current_room
         if l != number_of_parameters + 1:
@@ -329,8 +323,8 @@ class Actions:
         pnj_name = list_of_words[1]
         pnj = current_room.characters.get(pnj_name)
         if not pnj:
-                print(f"Il n'y a pas de {pnj_name} ici.")
-                return False
+            print(f"Il n'y a pas de {pnj_name} ici.")
+            return False
         message = pnj.get_msgs()
         print(message)
         return True
